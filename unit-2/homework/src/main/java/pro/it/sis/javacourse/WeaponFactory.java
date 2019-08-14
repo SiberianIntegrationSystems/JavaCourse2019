@@ -6,12 +6,12 @@ public class WeaponFactory {
         return createWeapon(weaponType, damage);
     }
 
-    public static Weapon createWeapon(WeaponType weaponType, Damage damage) {
+    public static Weapon createWeapon(WeaponType weaponType, Damage... damages) {
         switch (weaponType) {
             case ranged:
-                return new RangedWeapon(damage);
+                return new RangedWeapon(damages);
             case melee:
-                return new MeleeWeapon(damage);
+                return new MeleeWeapon(damages);
             default:
                 throw new RuntimeException("Unknown weapon type: " + weaponType);
         }

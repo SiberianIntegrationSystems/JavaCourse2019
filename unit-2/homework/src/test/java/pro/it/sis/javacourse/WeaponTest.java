@@ -57,21 +57,21 @@ public class WeaponTest {
     }
 
     @Test
-    public void testBrokenWeapon() {
+    public void testDowngradeWeapon() {
         Target target = new Target();
         Weapon weapon = WeaponFactory.createWeapon(WeaponType.ranged, DamageType.ice, 30);
         weapon.hit(target);
         assertEquals(30, target.getTotalDamageStrength(DamageType.ice));
 
-        weapon.getDamage().setStrength(5);
-        assertEquals(5, weapon.getDamage().getStrength());
+        weapon.downgrade(0.1);
+        weapon.hit(target);
 
-        assertEquals(30, target.getTotalDamageStrength(DamageType.ice));
+        assertEquals(27, target.getLastDamageStrength(DamageType.ice));
 
     }
 
     @Test
-    public void testMixedDamage() {
+    public void testMultipleWeaponsDamage() {
         Target target = new Target();
 
         Weapon fireStick = WeaponFactory.createWeapon(WeaponType.ranged, DamageType.fire, 40);
@@ -87,5 +87,37 @@ public class WeaponTest {
         assertEquals(15, target.getTotalDamageStrength(DamageType.physical));
         assertEquals(40, target.getTotalDamageStrength(DamageType.fire));
         assertEquals(75, target.getTotalDamageStrength());
+    }
+
+    @Test
+    public void testMixedDamage() {
+        Target target = new Target();
+        Damage fireDamage = DamageFactory.createDamage(DamageType.fire, 15);
+        Damage physicalDamage = DamageFactory.createDamage(DamageType.physical, 30);
+        Damage poisonDamage = DamageFactory.createDamage(DamageType.poison, 5);
+        Weapon firePoisonedBow = WeaponFactory.createWeapon(WeaponType.ranged, fireDamage, physicalDamage, poisonDamage);
+        firePoisonedBow.hit(target);
+
+        assertEquals(5, target.getTotalDamageStrength(DamageType.poison));
+        assertEquals(30, target.getTotalDamageStrength(DamageType.physical));
+        assertEquals(15, target.getTotalDamageStrength(DamageType.fire));
+        assertEquals(50, target.getTotalDamageStrength());
+    }
+
+    @Test
+    public void testWeaponBreaking() {
+        Target target = new Target();
+        Damage iceDamage = DamageFactory.createDamage(DamageType.ice, 15);
+        Damage physicalDamage = DamageFactory.createDamage(DamageType.physical, 30);
+        Weapon frozenSword = WeaponFactory.createWeapon(WeaponType.melee, iceDamage, physicalDamage);
+        for (int i = 0; i < 10; i++) {
+            frozenSword.hit(target);
+        }
+        assertEquals(150, target.getTotalDamageStrength(DamageType.ice));
+        assertEquals(300, target.getTotalDamageStrength(DamageType.physical));
+
+        frozenSword.hit(target);
+        assertEquals(13, target.getLastDamageStrength(DamageType.ice));
+        assertEquals(27, target.getLastDamageStrength(DamageType.physical));
     }
 }

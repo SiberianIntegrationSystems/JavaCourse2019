@@ -15,6 +15,18 @@ public class Target {
         return totalDamage;
     }
 
+    public int getLastDamageStrength(DamageType type) {
+        int lastDamage = 0;
+        for (int i = damages.size() - 1; i >= 0; i--) {
+            Damage currentDamage = damages.get(i);
+            if (currentDamage.getType().equals(type)) {
+                lastDamage = currentDamage.getStrength();
+                break;
+            }
+        }
+        return lastDamage;
+    }
+
     public int getTotalDamageStrength(DamageType type) {
         int totalDamage = 0;
         for (Damage damage : this.damages) {
@@ -25,7 +37,7 @@ public class Target {
         return totalDamage;
     }
 
-    public void addDamage(Damage weaponDamage) {
-        this.damages.add(weaponDamage);
+    public void addDamage(List<Damage> weaponDamages) {
+        this.damages.addAll(weaponDamages);
     }
 }

@@ -1,5 +1,5 @@
 package pro.it.sis.javacourse;
 
 public enum DamageType {
-    physical, fire, ice;
+    physical, fire, ice, poison;
 }

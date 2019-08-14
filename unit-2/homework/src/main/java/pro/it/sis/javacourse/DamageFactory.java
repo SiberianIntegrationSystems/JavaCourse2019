@@ -9,6 +9,8 @@ public class DamageFactory {
                 return new FireDamage(strength);
             case ice:
                 return new IceDamage(strength);
+            case poison:
+                return new PoisonDamage(strength);
             default:
                 throw new RuntimeException("Unknown damage type: " + type);
         }
