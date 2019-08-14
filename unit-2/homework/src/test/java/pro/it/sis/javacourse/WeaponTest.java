@@ -1,8 +1,7 @@
 package pro.it.sis.javacourse;
 
+import org.junit.Assert;
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
 
 public class WeaponTest {
 
@@ -36,7 +35,7 @@ public class WeaponTest {
         this.testDamage(WeaponType.ranged, DamageType.ice, 15);
     }
 
-    private void testDamage(WeaponType weaponType, DamageType damageType, int damageStrength) {
+    private void testDamage(WeaponType weaponType, DamageType damageType, double damageStrength) {
         Target target = new Target();
         Weapon weapon = WeaponFactory.createWeapon(weaponType, damageType, damageStrength);
         weapon.hit(target);
@@ -67,7 +66,6 @@ public class WeaponTest {
         weapon.hit(target);
 
         assertEquals(27, target.getLastDamageStrength(DamageType.ice));
-
     }
 
     @Test
@@ -117,7 +115,38 @@ public class WeaponTest {
         assertEquals(300, target.getTotalDamageStrength(DamageType.physical));
 
         frozenSword.hit(target);
-        assertEquals(13, target.getLastDamageStrength(DamageType.ice));
+        assertEquals(13.5, target.getLastDamageStrength(DamageType.ice));
         assertEquals(27, target.getLastDamageStrength(DamageType.physical));
+    }
+
+    @Test
+    public void testDamageNotNegative() {
+        Target target = new Target();
+        Damage iceDamage = DamageFactory.createDamage(DamageType.ice, 15);
+        Damage physicalDamage = DamageFactory.createDamage(DamageType.physical, 30);
+        Weapon frozenSword = WeaponFactory.createWeapon(WeaponType.melee, iceDamage, physicalDamage);
+
+        for (int i = 0; i < 100; i++) {
+            frozenSword.hit(target);
+        }
+        assertEquals(1.5, target.getLastDamageStrength(DamageType.ice));
+        assertEquals(3.0, target.getLastDamageStrength(DamageType.physical));
+
+        assertEquals(825.0, target.getTotalDamageStrength(DamageType.ice));
+        assertEquals(1650.0, target.getTotalDamageStrength(DamageType.physical));
+
+        for (int i = 0; i < 100; i++) {
+            frozenSword.hit(target);
+        }
+
+        assertEquals(0, target.getLastDamageStrength(DamageType.ice));
+        assertEquals(0, target.getLastDamageStrength(DamageType.physical));
+
+        assertEquals(825.0, target.getTotalDamageStrength(DamageType.ice));
+        assertEquals(1650.0, target.getTotalDamageStrength(DamageType.physical));
+    }
+
+    private void assertEquals(double exp, double actual) {
+        Assert.assertEquals(exp, actual, 0.00000001d);
     }
 }

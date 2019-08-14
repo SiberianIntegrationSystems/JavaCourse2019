@@ -1,7 +1,7 @@
 package pro.it.sis.javacourse;
 
 public class PoisonDamage extends Damage {
-    public PoisonDamage(int strength) {
+    public PoisonDamage(double strength) {
         super(DamageType.poison, strength);
     }
 }

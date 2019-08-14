@@ -16,8 +16,8 @@ public class Weapon {
     void hit(Target target) {
         target.addDamage(damages);
         this.hitCount++;
-        if (hitCount % 10 == 0) {
-            this.downgrade(0.1);
+        if (this.hitCount % 10 == 0) {
+            this.downgrade(0.1d);
         }
     }
 
@@ -29,16 +29,21 @@ public class Weapon {
         List<Damage> newDamages = new ArrayList<>();
         for (Damage damage : this.damages) {
             Damage newDamage = damage.copy();
-            newDamage.setStrength((int) (newDamage.getStrength() * grade));
+            newDamage.setStrength(damage.getBaseStrength() * grade);
             newDamages.add(newDamage);
         }
+
 
         this.damages = newDamages;
         this.grade = grade;
     }
 
     public void downgrade(double diff) {
-        this.setGrade(this.grade - diff);
+        double newGrade = this.grade - diff;
+        if (newGrade < 0) {
+            newGrade = 0;
+        }
+        this.setGrade(newGrade);
     }
 
     public void upgrade(double diff) {
@@ -47,5 +52,23 @@ public class Weapon {
 
     public void restore() {
         this.setGrade(1);
+    }
+
+    public String toString() {
+        String result = "\n---------Weapon---------";
+
+        for (Damage damage : this.damages) {
+            result += "\nDamage type:" + damage.getType() + "; strength: " + damage.getStrength() + "; baseStrength: " + damage.getBaseStrength();
+        }
+        result += "\ngrade: " + grade;
+        result += "\nhitCount: " + hitCount;
+
+        result += "\n------------------------";
+
+        return result;
+    }
+
+    public void print() {
+        System.out.println(toString());
     }
 }

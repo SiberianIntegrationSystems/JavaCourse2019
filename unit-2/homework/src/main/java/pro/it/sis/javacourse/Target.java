@@ -7,16 +7,16 @@ public class Target {
 
     private List<Damage> damages = new ArrayList<>();
 
-    public int getTotalDamageStrength() {
-        int totalDamage = 0;
+    public double getTotalDamageStrength() {
+        double totalDamage = 0;
         for (Damage damage : this.damages) {
             totalDamage += damage.getStrength();
         }
         return totalDamage;
     }
 
-    public int getLastDamageStrength(DamageType type) {
-        int lastDamage = 0;
+    public double getLastDamageStrength(DamageType type) {
+        double lastDamage = 0;
         for (int i = damages.size() - 1; i >= 0; i--) {
             Damage currentDamage = damages.get(i);
             if (currentDamage.getType().equals(type)) {
@@ -27,8 +27,8 @@ public class Target {
         return lastDamage;
     }
 
-    public int getTotalDamageStrength(DamageType type) {
-        int totalDamage = 0;
+    public double getTotalDamageStrength(DamageType type) {
+        double totalDamage = 0;
         for (Damage damage : this.damages) {
             if (damage.getType().equals(type)) {
                 totalDamage += damage.getStrength();

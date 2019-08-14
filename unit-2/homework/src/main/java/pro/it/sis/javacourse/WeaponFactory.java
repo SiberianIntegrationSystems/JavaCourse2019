@@ -1,7 +1,7 @@
 package pro.it.sis.javacourse;
 
 public class WeaponFactory {
-    public static Weapon createWeapon(WeaponType weaponType, DamageType damageType, int damageStrength) {
+    public static Weapon createWeapon(WeaponType weaponType, DamageType damageType, double damageStrength) {
         Damage damage = DamageFactory.createDamage(damageType, damageStrength);
         return createWeapon(weaponType, damage);
     }

@@ -1,7 +1,7 @@
 package pro.it.sis.javacourse;
 
 public class FireDamage extends Damage {
-    public FireDamage(int strength) {
+    public FireDamage(double strength) {
         super(DamageType.fire, strength);
     }
 }

@@ -2,26 +2,38 @@ package pro.it.sis.javacourse;
 
 public class Damage {
     private DamageType type;
-    private int strength;
+    private double strength;
+    private double baseStrength;
 
-    public Damage(DamageType type, int strength) {
+    public double getBaseStrength() {
+        return baseStrength;
+    }
+
+    public Damage(DamageType type, double strength) {
         this.type = type;
         this.strength = strength;
+        this.baseStrength = strength;
+    }
+
+    public Damage(DamageType type, double strength, double baseStrength) {
+        this.type = type;
+        this.strength = strength;
+        this.baseStrength = baseStrength;
     }
 
     public DamageType getType() {
         return type;
     }
 
-    public int getStrength() {
+    public double getStrength() {
         return strength;
     }
 
-    public void setStrength(int strength) {
+    public void setStrength(double strength) {
         this.strength = strength;
     }
 
     public Damage copy() {
-        return new Damage(this.type, this.strength);
+        return new Damage(this.type, this.strength, this.baseStrength);
     }
 }

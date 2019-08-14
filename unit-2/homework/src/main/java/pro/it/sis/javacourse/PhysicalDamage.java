@@ -1,7 +1,7 @@
 package pro.it.sis.javacourse;
 
 public class PhysicalDamage extends Damage {
-    public PhysicalDamage(int strength) {
+    public PhysicalDamage(double strength) {
         super(DamageType.physical, strength);
     }
 }
