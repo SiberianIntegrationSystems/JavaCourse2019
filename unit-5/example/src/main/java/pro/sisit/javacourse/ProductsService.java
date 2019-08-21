@@ -47,7 +47,7 @@ public class ProductsService {
     private static BigDecimal getTotalTax(List<Product> products) {
         return products.stream()
                 .map(Product::getPrice)
-                .map(price -> price.divide(BigDecimal.valueOf(1.2), RoundingMode.HALF_EVEN))
+                .map(price -> price.divide(BigDecimal.valueOf(120), RoundingMode.HALF_EVEN).multiply(BigDecimal.valueOf(20)))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
