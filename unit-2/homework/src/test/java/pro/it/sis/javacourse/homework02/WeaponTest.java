@@ -1,7 +1,8 @@
-package pro.it.sis.javacourse;
+package pro.it.sis.javacourse.homework02;
 
 import org.junit.Assert;
 import org.junit.Test;
+import pro.it.sis.javacourse.homework02.*;
 
 public class WeaponTest {
 

@@ -1,4 +1,4 @@
-package pro.it.sis.javacourse;
+package pro.it.sis.javacourse.homework02;
 
 public class PoisonDamage extends Damage {
     public PoisonDamage(double strength) {

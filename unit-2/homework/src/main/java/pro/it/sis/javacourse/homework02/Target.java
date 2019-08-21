@@ -1,4 +1,4 @@
-package pro.it.sis.javacourse;
+package pro.it.sis.javacourse.homework02;
 
 import java.util.ArrayList;
 import java.util.List;

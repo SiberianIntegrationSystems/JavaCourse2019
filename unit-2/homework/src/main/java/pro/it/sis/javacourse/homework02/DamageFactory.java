@@ -1,4 +1,4 @@
-package pro.it.sis.javacourse;
+package pro.it.sis.javacourse.homework02;
 
 public class DamageFactory {
     public static Damage createDamage(DamageType type, double strength) {
