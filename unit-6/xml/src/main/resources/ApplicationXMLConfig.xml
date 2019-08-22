@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="PetServiceCat"
+          class="io.github.bael.xml.CatShop" primary="true" >
+        <constructor-arg type="io.github.bael.xml.Toy" ref="toy" />
+    </bean>
+    <bean id="PetServiceDog" class="io.github.bael.xml.DogShop" >
+    </bean>
+
+    <bean name="toy" class="io.github.bael.xml.Toy">
+        <constructor-arg name="name" value="mouse" />
+    </bean>
+</beans>
