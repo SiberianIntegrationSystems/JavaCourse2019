@@ -18,12 +18,12 @@ public class JdbcJokeDataService implements JokeDataService {
 
 @Override
 public void save(String jokeText) {
-    jdbcTemplate.update("insert into jokes (text) values (?)", jokeText);
+    jdbcTemplate.update("insert into jokes (joke) values (?)", jokeText);
 }
 
 @Override
 public List<String> getAll() {
-    return jdbcTemplate.query("select text from jokes",
-            (rs, rowNum) -> rs.getString("text"));
+    return jdbcTemplate.query("select joke from jokes",
+            (rs, rowNum) -> rs.getString("joke"));
 }
 }
