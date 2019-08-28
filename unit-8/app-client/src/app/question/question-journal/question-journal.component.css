@@ -1,0 +1,31 @@
+table,
+.search-field {
+  width: 100%;
+}
+
+.main-info {
+  display: flex;
+  justify-content: center;
+  vertical-align: middle;
+}
+
+.refresh-button {
+  height: 35px;
+  margin: auto 10px;
+}
+
+.filters mat-form-field {
+  margin: 5px 0;
+}
+
+.mat-column-id {
+  width: 50px;
+}
+
+.mat-column-name {
+  width: 600px;
+}
+
+.apply-filters-btn {
+  margin: 0 5px;
+}
