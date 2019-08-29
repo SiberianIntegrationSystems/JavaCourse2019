@@ -1,5 +1,7 @@
 # Занятие №8. Spring MVC. Rest API 
 
+## Презентация занятия - https://slides.com/siberian_integration_systems/javasis2019unit8#/
+
 ## Для старта клиента
 - Скачать и установить nodeJS (https://nodejs.org/en/download/)
 - Перед *первым* запуском выполнить команду 
