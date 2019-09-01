@@ -1,14 +1,4 @@
-<div class="main-info">
-  <h2>{{journalName$ | async}}</h2>
-
-  <button mat-raised-button
-          class="refresh-button"
-          color=primary
-          (click)="refresh()">Обновить
-  </button>
-</div>
-
-<mat-divider></mat-divider>
+<app-journal [journalId]="journalId"></app-journal>
 
 <div class="filters">
   <mat-form-field class="search-field">
@@ -37,7 +27,26 @@
 
 </div>
 
+<button mat-raised-button
+        class="create-button"
+        color=primary
+        (click)="createQuestion()">Добавить новую запись
+</button>
+
 <table mat-table [dataSource]="questions$ | async" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="edit">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell
+        *matCellDef="let element"
+        class="action-link">
+      <button mat-raised-button
+              class="edit-button"
+              color=primary
+              (click)="editQuestion(element)">Редактировать
+      </button>
+    </td>
+  </ng-container>
 
   <ng-container matColumnDef="id">
     <th mat-header-cell *matHeaderCellDef> №</th>
@@ -57,8 +66,10 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+
 <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"
                showFirstLastButtons
                [length]="length$ | async"
                [pageSize]="pageSize$ | async"
-               (page)="onPageClick($event)"></mat-paginator>
+               (page)="onPageClick($event)">
+</mat-paginator>

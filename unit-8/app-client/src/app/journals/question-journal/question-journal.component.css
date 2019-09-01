@@ -3,19 +3,21 @@ table,
   width: 100%;
 }
 
-.main-info {
-  display: flex;
-  justify-content: center;
-  vertical-align: middle;
+.edit-button {
+  margin: auto 15px;
 }
 
-.refresh-button {
-  height: 35px;
-  margin: auto 10px;
+.create-button {
+  margin: 10px 15px;
 }
 
 .filters mat-form-field {
   margin: 5px 0;
+}
+
+.mat-column-edit {
+  width: 150px;
+  padding: 0 !important;
 }
 
 .mat-column-id {
