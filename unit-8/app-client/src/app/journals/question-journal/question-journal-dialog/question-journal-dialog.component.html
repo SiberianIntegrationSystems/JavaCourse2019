@@ -13,7 +13,8 @@
 
     <mat-form-field class="answers-count">
       <mat-label>Количество ответов</mat-label>
-      <mat-select formControlName="answersCount">
+      <mat-select formControlName="answersCount"
+                  required>
         <mat-option>Не задано</mat-option>
         <mat-option *ngFor="let answerCount of answersCountItems" [value]="answerCount">
           {{answerCount}}

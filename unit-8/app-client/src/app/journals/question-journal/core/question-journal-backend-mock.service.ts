@@ -15,14 +15,14 @@ export class QuestionJournalBackendMockService {
   constructor(private http: HttpClient) {
   }
 
-  editQuestionJournalItem(item: QuestionJournalItem): Observable<{}> {
-    return this.http.put(
+  editQuestionJournalItem(item: QuestionJournalItem): Observable<QuestionJournalItem> {
+    return this.http.put<QuestionJournalItem>(
       QuestionJournalBackendMockService.getQuestionJournalRestUrl() + 'edit/' + item.id, item
     );
   }
 
-  createJournalItem(newItem: QuestionJournalDialogResult): Observable<{}> {
-    return this.http.post(
+  createJournalItem(newItem: QuestionJournalDialogResult): Observable<QuestionJournalItem> {
+    return this.http.post<QuestionJournalItem>(
       QuestionJournalBackendMockService.getQuestionJournalRestUrl() + 'create', newItem
     );
   }

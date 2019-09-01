@@ -95,8 +95,7 @@ export class QuestionJournalComponent implements OnInit, OnDestroy {
   }
 
   createQuestion() {
-    const eventLabel = 'Создать';
-    this.openDialog(eventLabel)
+    this.openDialog('Создать')
       .then((newItem: QuestionJournalDialogResult) => {
         if (newItem) {
           this.questionJournalService.createJournalItem(newItem);
@@ -105,15 +104,11 @@ export class QuestionJournalComponent implements OnInit, OnDestroy {
   }
 
   editQuestion(item: QuestionJournalItem) {
-    const eventLabel = 'Редактировать';
-    this.openDialog(eventLabel, item)
+    this.openDialog('Редактировать', item)
       .then((newValues: QuestionJournalDialogResult) => {
         if (newValues) {
-          console.log('serd');
           this.questionJournalService.editJournalItem(
-            QuestionJournalComponent.convertDialogResultToJournalItem(item.id, newValues)
-          )
-          ;
+            QuestionJournalComponent.convertDialogResultToJournalItem(item.id, newValues));
         }
       });
   }

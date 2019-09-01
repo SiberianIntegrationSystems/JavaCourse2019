@@ -27,8 +27,8 @@ export class QuestionJournalDialogComponent implements OnInit {
   public answersCountItems: number[];
   public dialogForm: FormGroup;
 
-  private description = '';
-  private answersCount = 0;
+  private description: string;
+  private answersCount: number;
 
   constructor(public dialogRef: MatDialogRef<QuestionJournalDialogComponent>,
               private fb: FormBuilder,
@@ -53,21 +53,16 @@ export class QuestionJournalDialogComponent implements OnInit {
   private fillForm() {
     this.dialogForm = this.fb.group({
       description: new FormControl(this.description, Validators.required),
-      answersCount: new FormControl(this.answersCount),
+      answersCount: new FormControl(this.answersCount, Validators.required),
     });
   }
 
   onDialogSubmit() {
-    let newValues: QuestionJournalDialogResult;
-    const newDescription: string = this.dialogForm.get('description').value;
-    const newAnswersCount: number = this.dialogForm.get('answersCount').value;
+    const newValues: QuestionJournalDialogResult = {
+      name: this.dialogForm.get('description').value,
+      answersCount: this.dialogForm.get('answersCount').value,
+    };
 
-    if (newDescription !== this.description || newAnswersCount !== this.answersCount) {
-      newValues = {
-        name: newDescription,
-        answersCount: newAnswersCount,
-      };
-    }
     this.dialogRef.close(newValues);
   }
 
