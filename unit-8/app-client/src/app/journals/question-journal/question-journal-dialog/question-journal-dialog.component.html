@@ -1,0 +1,38 @@
+<h1 mat-dialog-title>{{eventLabel}} запись журнала</h1>
+<div mat-dialog-content>
+
+  <form [formGroup]="dialogForm">
+
+    <mat-form-field class="description">
+    <textarea matInput
+              formControlName="description"
+              placeholder="Описание"
+              required>
+    </textarea>
+    </mat-form-field>
+
+    <mat-form-field class="answers-count">
+      <mat-label>Количество ответов</mat-label>
+      <mat-select formControlName="answersCount"
+                  required>
+        <mat-option>Не задано</mat-option>
+        <mat-option *ngFor="let answerCount of answersCountItems" [value]="answerCount">
+          {{answerCount}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+
+</div>
+
+<div mat-dialog-actions>
+  <button mat-flat-button
+          color="primary"
+          [disabled]="dialogForm.invalid"
+          (click)="onDialogSubmit()">Сохранить
+  </button>
+  <button color="primary"
+          mat-flat-button
+          (click)="closeDialog()">Закрыть
+  </button>
+</div>

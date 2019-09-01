@@ -1,20 +1,11 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, combineLatest, merge, Observable, ReplaySubject, Subject } from 'rxjs';
-import {
-  debounceTime,
-  distinctUntilChanged,
-  map,
-  mapTo,
-  shareReplay,
-  startWith,
-  switchMap,
-  take,
-} from 'rxjs/operators';
-import { JournalEntity } from 'src/app/model/core/journal-entity.model';
-import { JournalFilterItem } from 'src/app/model/core/journal-filter-item';
-import { JournalRequest } from 'src/app/model/core/journal-request.model';
-import { JournalResult } from 'src/app/model/core/journal-result.model';
-import { JournalBackendMockService } from './journal-backend-mock.service';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject, combineLatest, merge, Observable, ReplaySubject, Subject} from 'rxjs';
+import {debounceTime, distinctUntilChanged, map, mapTo, shareReplay, startWith, switchMap, take} from 'rxjs/operators';
+import {JournalEntity} from 'src/app/model/core/journal-entity.model';
+import {JournalFilterItem} from 'src/app/model/core/journal-filter-item';
+import {JournalRequest} from 'src/app/model/core/journal-request.model';
+import {JournalResult} from 'src/app/model/core/journal-result.model';
+import {JournalBackendMockService} from 'src/app/core/journal-backend-mock.service';
 
 @Injectable()
 export class JournalMainService {
@@ -62,7 +53,7 @@ export class JournalMainService {
       [journalInfo$, search$, page$, this.pageSize$, filters$, this.refresh$],
     ).pipe(
       map(([journalInfo, searchString, page, pageSize, filters]) =>
-            JournalMainService.formRequest(journalInfo, searchString, page, pageSize, filters)),
+        JournalMainService.formRequest(journalInfo, searchString, page, pageSize, filters)),
       debounceTime(0),
       switchMap(request => this.backend.getResult(request)),
       shareReplay(1),
@@ -71,9 +62,9 @@ export class JournalMainService {
 
   initJournal(journalId: string) {
     this.backend.getJournalInfo(journalId)
-        .pipe(take(1))
-        .toPromise()
-        .then(info => this.journalInfo$.next(info));
+      .pipe(take(1))
+      .toPromise()
+      .then(info => this.journalInfo$.next(info));
   }
 
   getResult(): Observable<JournalResult> {
