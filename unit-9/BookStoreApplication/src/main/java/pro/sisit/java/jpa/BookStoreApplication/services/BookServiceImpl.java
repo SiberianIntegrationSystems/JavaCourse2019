@@ -1,61 +1,63 @@
 package pro.sisit.java.jpa.BookStoreApplication.services;
 
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import pro.sisit.java.jpa.BookStoreApplication.dao.AuthorDAO;
+import pro.sisit.java.jpa.BookStoreApplication.dao.BookDAO;
+import pro.sisit.java.jpa.BookStoreApplication.entities.Author;
 import pro.sisit.java.jpa.BookStoreApplication.entities.Book;
+import pro.sisit.java.jpa.BookStoreApplication.entities.Page;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.TypedQuery;
-import java.util.List;
+import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.Optional;
 
+@Service
+@Transactional
 public class BookServiceImpl implements BookService {
 
     @Autowired
-    private EntityManagerFactory entityManagerFactory;
+    private final AuthorDAO authorDAO;
 
-    @Override
-    public Book createBook(String name,String isbn, String authorid) {
+    @Autowired
+    private final BookDAO bookDAO;
 
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        Book book = new Book();
-        book.setIsbn(isbn);
-        book.setName(name);
-        book.setAuthor(author);
-
-        entityManager.persist(book);
-
-        return book;
-
-
-        return null;
+    public BookServiceImpl(AuthorDAO authorDAO, BookDAO bookDAO) {
+        this.authorDAO = authorDAO;
+        this.bookDAO = bookDAO;
     }
 
     @Override
-    public Book findByISBN(String isbn) {
+    public Book createBook(String name, String isbn, Long authorid) {
+        Author author = authorDAO.findById(authorid);
 
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        Book book = bookDAO.createBook(name, isbn, author);
 
-        TypedQuery<Book> query = entityManager.createQuery("SELECT b FROM Book as b WHERE b.isbn=:isbn", Book.class);
-        query.setParameter("isbn",isbn);
+        ArrayList<Page> pages = new ArrayList<>();
 
-        List<Book> resultList = query.getResultList();
+        for (int i = 0; i < 5; i++) {
+            Page page = new Page();
 
-        if (resultList.size()>0)
-        {
-            return resultList.get(0);
+            page.setNumber(String.valueOf(i));
+            pages.add(page);
         }
-        else {
-            return null;
-        }
+        book.setPages(pages);
+
+        return book;
     }
 
     @Override
-    public Book findById(Long id) {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+    public Book findIsbn(String isbn) {
+        Optional<Book> byISBN = Optional.ofNullable(bookDAO.findByISBN(isbn));
 
-        Book book = entityManager.find(Book.class, id);
+        return byISBN.get();
+    }
 
-        return book;
+    private class BookNotFound extends RuntimeException{
 
+        public BookNotFound(String message) {
+            super(message);
+        }
     }
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
+import pro.sisit.java.jpa.BookStoreApplication.entities.Author;
 import pro.sisit.java.jpa.BookStoreApplication.entities.Book;
 import pro.sisit.java.jpa.BookStoreApplication.services.AuthorService;
 import pro.sisit.java.jpa.BookStoreApplication.services.BookService;
@@ -19,13 +20,22 @@ public class CommandsShell {
 
     @ShellMethod("create book")
     public void createBook(@ShellOption({"-n", "--name"}) String name, @ShellOption({"-a", "--author"}) String authorid,@ShellOption({"-i", "--isbn"}) String isbn){
-        Book book = bookService.createBook(name, authorid, isbn);
 
-        System.out.printf("Книга сохранена ID%d%n", book.getId());
+        Book book = bookService.createBook(name, isbn, Long.parseLong(authorid));
+
+        System.out.printf("Книга сохранена %s",book.toString());
     }
 
     @ShellMethod("create author")
-    public void createAutor(@ShellOption({"-n", "--name"}) String name){
+    public void createAuthor(@ShellOption({"-n", "--name"}) String name){
+        Author author = authorService.createAuthor(name);
 
+        System.out.printf("Автор сохранен %s",author);
+    }
+
+    @ShellMethod("find by isbn")
+    public void findIsbn(@ShellOption({"-i", "--isbn"}) String isbn){
+
+        Book book = bookService.findIsbn(isbn);
     }
 }
