@@ -2,6 +2,7 @@ package pro.sisit.java.jpa.BookStoreApplication;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
 public class BookStoreApplication {

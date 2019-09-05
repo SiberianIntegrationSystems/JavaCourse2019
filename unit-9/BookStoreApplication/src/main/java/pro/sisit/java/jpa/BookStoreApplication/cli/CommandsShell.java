@@ -23,7 +23,9 @@ public class CommandsShell {
 
         Book book = bookService.createBook(name, isbn, Long.parseLong(authorid));
 
-        System.out.printf("Книга сохранена %s",book.toString());
+        Book book2 = bookService.findIsbn(isbn);
+
+        System.out.printf("Книга сохранена %s",book2.toString());
     }
 
     @ShellMethod("create author")

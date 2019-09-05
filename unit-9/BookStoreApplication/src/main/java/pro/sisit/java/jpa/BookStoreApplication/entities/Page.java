@@ -2,12 +2,9 @@ package pro.sisit.java.jpa.BookStoreApplication.entities;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name = "pages")
+
 public class Page {
 
-    @Id
-    @GeneratedValue
     private Long id;
 
     private String number;

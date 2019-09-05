@@ -1,9 +1,6 @@
 package pro.sisit.java.jpa.BookStoreApplication.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "author")
@@ -13,6 +10,7 @@ public class Author {
     @GeneratedValue
     private Long id;
 
+    @Column(name = "name")
     private String name;
 
     public Long getId() {

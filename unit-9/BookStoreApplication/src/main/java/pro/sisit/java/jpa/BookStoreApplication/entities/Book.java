@@ -15,12 +15,14 @@ public class Book {
 
     private String isbn;
 
-    @Transient
+    /*@Column(name = "author_id")
+    private Long authorId;*/
+
     @ManyToOne
-    @JoinColumn(name = "author_id",nullable = false)
+    @JoinColumn(name = "author_id")
     private Author author;
 
-    @OneToMany(mappedBy = "bookId", fetch = FetchType.LAZY)
+    @Transient
     private List<Page> pages;
 
     public void setId(Long id) {

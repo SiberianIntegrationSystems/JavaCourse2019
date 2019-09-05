@@ -22,12 +22,18 @@ public class BookDAOImpl implements BookDAO {
 
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
+        if (author==null)
+            throw new RuntimeException("author not found");
+
         Book book = new Book();
         book.setIsbn(isbn);
         book.setName(name);
         book.setAuthor(author);
 
+        entityManager.getTransaction().begin();
         entityManager.persist(book);
+        entityManager.flush();
+        entityManager.getTransaction().commit();
 
         return book;
     }
