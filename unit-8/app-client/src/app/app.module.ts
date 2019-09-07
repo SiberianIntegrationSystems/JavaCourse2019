@@ -3,9 +3,12 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {
   MatButtonModule,
+  MatCheckboxModule,
   MatDialogModule,
   MatDividerModule,
+  MatIconModule,
   MatInputModule,
+  MatListModule,
   MatPaginatorModule,
   MatSelectModule,
   MatSortModule,
@@ -23,6 +26,7 @@ import {QuestionJournalComponent} from './journals/question-journal/question-jou
 import {JournalMainService} from './core/journal-main.service';
 import {QuestionJournalMainService} from './journals/question-journal/core/question-journal-main.service';
 import {QuestionJournalBackendMockService} from './journals/question-journal/core/question-journal-backend-mock.service';
+import {AnswersListComponent} from './journals/question-journal/components/answers-list/answers-list.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +34,8 @@ import {QuestionJournalBackendMockService} from './journals/question-journal/cor
     QuestionJournalComponent,
     QuestionJournalDialogComponent,
     JournalComponent,
+    AnswersListComponent,
+    AnswersListComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -46,6 +52,9 @@ import {QuestionJournalBackendMockService} from './journals/question-journal/cor
     AppRoutingModule,
     FormsModule,
     MatDialogModule,
+    MatCheckboxModule,
+    MatListModule,
+    MatIconModule,
   ],
   entryComponents: [QuestionJournalDialogComponent],
   providers: [

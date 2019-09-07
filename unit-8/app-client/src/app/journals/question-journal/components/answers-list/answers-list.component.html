@@ -1,0 +1,19 @@
+<button mat-flat-button
+        color="primary"
+        (click)="addAnswer()">Добавить ответ
+</button>
+
+<form [formGroup]="dialogForm">
+  <div *ngFor="let item of list">
+    <mat-form-field class="answer">
+      <input matInput
+             placeholder="Ответ"
+             required
+             formControlName="answerText"
+             [value]="item.answerText"/>
+    </mat-form-field>
+    <mat-checkbox [checked]="item.isCorrect" color="primary">Правильный ответ</mat-checkbox>
+    <mat-icon color="primary" (click)="removeItem(item)">delete</mat-icon>
+  </div>
+</form>
+

@@ -48,7 +48,8 @@ export class QuestionJournalComponent implements OnInit, OnDestroy {
     return {
       id: itemId,
       name: data.name,
-      answersCount: data.answersCount
+      answersCount: data.answersCount,
+      answers: data.answers,
     };
   }
 

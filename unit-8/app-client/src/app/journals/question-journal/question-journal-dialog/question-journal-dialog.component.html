@@ -11,24 +11,44 @@
     </textarea>
     </mat-form-field>
 
-    <mat-form-field class="answers-count">
-      <mat-label>Количество ответов</mat-label>
-      <mat-select formControlName="answersCount"
-                  required>
-        <mat-option>Не задано</mat-option>
-        <mat-option *ngFor="let answerCount of answersCountItems" [value]="answerCount">
-          {{answerCount}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+<!--    <button mat-flat-button-->
+<!--            color="primary"-->
+<!--            (click)="addAnswer()">Добавить ответ-->
+<!--    </button>-->
+<!--    <div *ngFor="let item of answers">-->
+<!--      <mat-form-field class="answer">-->
+<!--        <input matInput-->
+<!--               formControlName="answerText"-->
+<!--               placeholder="Ответ"-->
+<!--               [(ngModel)]="item.answerText"/>-->
+<!--      </mat-form-field>-->
+<!--      <mat-checkbox formControlName="bool" [(ngModel)]="item.isCorrect" color="primary">Правильный ответ</mat-checkbox>-->
+<!--      <mat-icon color="primary" (click)="removeItem(item)">delete</mat-icon>-->
+<!--    </div>-->
+
+
+    <app-answers-list #list [list]="answers" (invalidItem)="checkAnswers($event)"></app-answers-list>
+
+
+    <!--    <mat-form-field class="answers-count">-->
+    <!--      <mat-label>Количество ответов</mat-label>-->
+    <!--      <mat-select formControlName="answersCount"-->
+    <!--                  required>-->
+    <!--        <mat-option>Не задано</mat-option>-->
+    <!--        <mat-option *ngFor="let answerCount of answersCountItems" [value]="answerCount">-->
+    <!--          {{answerCount}}-->
+    <!--        </mat-option>-->
+    <!--      </mat-select>-->
+    <!--    </mat-form-field>-->
   </form>
 
 </div>
 
+<div *ngIf="showErrorMessage">Должен быть минимум один правильный ответ</div>
 <div mat-dialog-actions>
   <button mat-flat-button
           color="primary"
-          [disabled]="dialogForm.invalid"
+          [disabled]="dialogForm.invalid || isInvalidAnswers"
           (click)="onDialogSubmit()">Сохранить
   </button>
   <button color="primary"
