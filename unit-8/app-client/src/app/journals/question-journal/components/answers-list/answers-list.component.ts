@@ -30,10 +30,19 @@ export class AnswersListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.dialogForm = this.fb.group({
-      answerText: new FormControl('', Validators.required)
+      answerText: new FormControl('', Validators.required),
+      bool: new FormControl(),
     });
 
     this.subscription = this.dialogForm.statusChanges.subscribe(status => this.invalidItem.emit(status === 'INVALID'));
+  }
+
+  getList() {
+    console.log(this.list);
+    return {
+      answerText: this.dialogForm.get('answerText').value,
+      isCorrect: this.dialogForm.get('bool').value,
+    };
   }
 
   ngOnDestroy(): void {

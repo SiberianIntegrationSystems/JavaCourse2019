@@ -26,13 +26,15 @@ export interface QuestionJournalDialogResult {
 
 export class QuestionJournalDialogComponent implements OnInit {
 
-  // @ViewChild(AnswersListComponent)
-  // child: AnswersListComponent;
+  @ViewChild(AnswersListComponent, {static: false})
+  child: AnswersListComponent;
 
   public eventLabel: string;
   public answersCountItems: number[];
   public dialogForm: FormGroup;
+  public answerForm: FormGroup;
   public isInvalidAnswers: boolean;
+  public canCreate: boolean;
 
   public showErrorMessage: boolean;
   private description: string;
@@ -49,9 +51,36 @@ export class QuestionJournalDialogComponent implements OnInit {
     this.fillForm();
   }
 
+  addAnswer() {
+    this.answers.push(
+      {
+        answerText: this.answerForm.get('answerText').value,
+        isCorrect: this.answerForm.get('isCorrect').value
+      }
+    );
+    this.clear();
+  }
+
+  private clear() {
+    this.answerForm.get('answerText').setValue('');
+    this.answerForm.get('isCorrect').setValue(false);
+  }
+
+  removeItem(item: QuestionJournalItemAnswer) {
+    this.answers = this.answers.filter(val => val !== item);
+  }
+
   public checkAnswers(isInvalid: boolean) {
     console.log(isInvalid);
     this.isInvalidAnswers = isInvalid;
+  }
+
+  public save(item: QuestionJournalItemAnswer) {
+    this.answers = this.answers.filter(val => val === item);
+    this.answers.push({
+      answerText: this.answerForm.get('answerText').value,
+      isCorrect: this.answerForm.get('isCorrect').value,
+    });
   }
 
   private fillData() {
@@ -68,26 +97,31 @@ export class QuestionJournalDialogComponent implements OnInit {
   private fillForm() {
     this.dialogForm = this.fb.group({
       description: new FormControl(this.description, Validators.required),
-      // answersCount: new FormControl(this.answersCount, Validators.required),
-      // answers: new FormControl(this.answers, Validators.required),
+      demoArray: this.fb.array([]),
     });
+
+    // this.answerForm = this.fb.group({
+    //   answerText: new FormControl('', Validators.required),
+    //   isCorrect: new FormControl(),
+    // });
   }
 
 
   onDialogSubmit() {
-    const hasCorrect = this.answers.filter(answer => answer.isCorrect);
     console.log(this.answers);
-    if (!hasCorrect) {
-      this.showErrorMessage = true;
-    } else {
-      const newValues: QuestionJournalDialogResult = {
-        name: this.dialogForm.get('description').value,
-        answersCount: this.dialogForm.get('answersCount').value,
-        answers: [],
-      };
-
-      this.dialogRef.close(newValues);
-    }
+    // this.answers = this.child.getList();
+    const hasCorrect = this.answers.filter(answer => answer.isCorrect);
+    // if (!hasCorrect) {
+    //   this.showErrorMessage = true;
+    // } else {
+    //   const newValues: QuestionJournalDialogResult = {
+    //     name: this.dialogForm.get('description').value,
+    //     answersCount: this.dialogForm.get('answersCount').value,
+    //     answers: [],
+    //   };
+    //
+    //   this.dialogRef.close(newValues);
+    // }
 
   }
 

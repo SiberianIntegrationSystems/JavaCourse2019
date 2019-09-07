@@ -140,7 +140,7 @@ export class QuestionJournalComponent implements OnInit, OnDestroy {
 
   private openDialog(label: string, item?: QuestionJournalItem): Promise<QuestionJournalDialogResult> {
     const dialogRef = this.dialog.open(QuestionJournalDialogComponent, {
-      width: '500px',
+      width: '700px',
       data: {
         eventLabel: label,
         answersCountItems: this.answersCountItems,
