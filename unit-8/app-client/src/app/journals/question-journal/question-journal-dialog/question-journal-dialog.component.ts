@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {QuestionJournalItem} from 'src/app/model/question-journal-item.model';
 import {QuestionJournalItemAnswer} from '../../../model/question-journal-item-answer.model';
 
@@ -15,6 +15,24 @@ export interface QuestionJournalDialogResult {
   answersCount: number;
   answers: QuestionJournalItemAnswer[];
 }
+
+export function validateEmail(formArray: FormArray) {
+  const formGroups: FormGroup[] = formArray.controls as FormGroup[];
+  const res = formGroups.map(group => group.controls).filter(
+    control => control.isCorrect.value === true
+  );
+
+  if (res.length < 1) {
+    return {
+      validateEmail: {
+        valid: false
+      }
+    };
+  }
+
+  return null;
+}
+
 
 @Component({
   selector: 'app-question-journal-dialog',
@@ -61,18 +79,43 @@ export class QuestionJournalDialogComponent implements OnInit {
       new FormGroup({
           answerText: new FormControl(ans.answerText, Validators.required),
           isCorrect: new FormControl(ans.isCorrect)
-        },
+        }
       )
     );
 
     this.dialogForm = this.fb.group({
       description: new FormControl(this.description, Validators.required),
-      answersArray: this.fb.array(answersArr, Validators.required),
+      answersArray: this.fb.array(answersArr, [Validators.required, validateEmail]),
     });
 
     this.answersFormArray = this.dialogForm.get('answersArray') as FormArray;
 
+
   }
+
+  // requireCheckboxesToBeCheckedValidator(): ValidatorFn {
+  //   console.log('!!!');
+  //   return function validate(formGroup: FormGroup) {
+  //     let checked = 0;
+  //
+  //     console.log(formGroup);
+  //     Object.keys(formGroup.controls).forEach(key => {
+  //       const control = formGroup.controls[key];
+  //
+  //       if (control.value === true) {
+  //         checked ++;
+  //       }
+  //     });
+  //
+  //     if (checked < 1) {
+  //       return {
+  //         requireCheckboxesToBeChecked: true,
+  //       };
+  //     }
+  //
+  //     return null;
+  //   };
+  // }
 
   addAnswer() {
     this.answersFormArray.push(
