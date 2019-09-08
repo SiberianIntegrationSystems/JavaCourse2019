@@ -38,15 +38,23 @@ export function validateIsCorrectControl(formArray: FormArray) {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
+
 export class QuestionJournalDialogComponent implements OnInit {
 
   public eventLabel: string;
   public dialogForm: FormGroup;
   public answersFormArray: FormArray;
 
-  public showErrorMessage: boolean;
   private description: string;
   private answers: QuestionJournalItemAnswer[] = [];
+
+  private static createAnswerFormGroup(answerText: string, isCorrect: boolean) {
+    return new FormGroup({
+        answerText: new FormControl(answerText, Validators.required),
+        isCorrect: new FormControl(isCorrect)
+      }
+    );
+  }
 
   constructor(public dialogRef: MatDialogRef<QuestionJournalDialogComponent>,
               private fb: FormBuilder,
@@ -60,7 +68,6 @@ export class QuestionJournalDialogComponent implements OnInit {
 
   private fillData() {
     this.eventLabel = this.data.eventLabel;
-
     if (this.data.journalItem) {
       this.description = this.data.journalItem.name;
       this.answers = this.data.journalItem.answers;
@@ -69,11 +76,7 @@ export class QuestionJournalDialogComponent implements OnInit {
 
   private fillForm() {
     const answersArr: FormGroup[] = this.answers.map(ans =>
-      new FormGroup({
-          answerText: new FormControl(ans.answerText, Validators.required),
-          isCorrect: new FormControl(ans.isCorrect)
-        }
-      )
+      QuestionJournalDialogComponent.createAnswerFormGroup(ans.answerText, ans.isCorrect)
     );
 
     this.dialogForm = this.fb.group({
@@ -82,18 +85,10 @@ export class QuestionJournalDialogComponent implements OnInit {
     });
 
     this.answersFormArray = this.dialogForm.get('answersArray') as FormArray;
-
-
   }
 
   addAnswer() {
-    this.answersFormArray.push(
-      new FormGroup({
-          answerText: new FormControl('', Validators.required),
-          isCorrect: new FormControl(false, Validators.required)
-        }
-      )
-    );
+    this.answersFormArray.push(QuestionJournalDialogComponent.createAnswerFormGroup('', false));
   }
 
   removeItem(index: number) {
@@ -101,17 +96,12 @@ export class QuestionJournalDialogComponent implements OnInit {
   }
 
   onDialogSubmit() {
-    this.answers = this.answersFormArray.value;
-    console.log(this.answers);
-
     const newValues: QuestionJournalDialogResult = {
       name: this.dialogForm.get('description').value,
-      answers: this.answers,
+      answers: this.answersFormArray.value,
     };
 
     this.dialogRef.close(newValues);
-
-
   }
 
   closeDialog() {
