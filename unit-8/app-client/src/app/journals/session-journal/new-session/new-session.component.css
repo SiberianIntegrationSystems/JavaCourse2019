@@ -6,3 +6,7 @@ form {
 .question-title {
   color: blue;
 }
+
+.submit-button {
+  margin: 10px 15px;
+}
