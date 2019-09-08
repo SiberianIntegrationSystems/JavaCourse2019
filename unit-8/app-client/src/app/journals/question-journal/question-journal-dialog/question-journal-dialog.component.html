@@ -13,7 +13,6 @@
 
     <div>Варианты ответов:</div>
 
-<!--    РЕДАКТИРОВАТЬ УЖЕ ИМЕЮЩИЕСЯ-->
     <div formArrayName="answersArray">
       <div class="form-group" *ngFor="let item of answersFormArray.controls; let i = index">
         <div formGroupName="{{i}}">
@@ -28,7 +27,6 @@
         </div>
       </div>
     </div>
-<!--          FFFFFFFFFFFFFFFFFFFFF-->
 
     <button
       mat-flat-button
@@ -39,84 +37,8 @@
   </form>
 
 
-  <!--    //   22-->
-  <!--  <form [formGroup]="answerForm">-->
-  <!--    <div *ngFor="let item of answers">-->
-  <!--      <div>{{item.isCorrect}}</div>-->
-  <!--      <mat-form-field class="answerText">-->
-  <!--    <textarea matInput-->
-  <!--              formControlName="answerText"-->
-  <!--              placeholder="Описание"-->
-  <!--              [value]="item.answerText">-->
-  <!--    </textarea>-->
-  <!--      </mat-form-field>-->
-  <!--      <mat-checkbox-->
-  <!--                    [checked]="item.isCorrect"-->
-  <!--                    color="primary">Верно-->
-  <!--      </mat-checkbox>-->
-  <!--      <button-->
-  <!--        mat-flat-button-->
-  <!--        color="primary"-->
-  <!--        [disabled]="answerForm.untouched && answerForm.pristine && answerForm.invalid"-->
-  <!--        (click)="save(item)">Сохранить-->
-  <!--      </button>-->
-  <!--    </div>-->
-  <!--  </form>-->
-
-
-  <!--  /////  1-->
-  <!--  <form [formGroup]="answerForm">-->
-  <!--    <div>Варианты ответов:</div>-->
-  <!--    <div *ngFor="let item of answers; let i=index">-->
-  <!--      <mat-icon color="primary" (click)="removeItem(item)">delete</mat-icon>-->
-  <!--      {{i + 1}} - {{item.answerText}}-->
-  <!--      <mat-checkbox disabled="true" [checked]="item.isCorrect"></mat-checkbox>-->
-  <!--    </div>-->
-  <!--    <div>-->
-  <!--      <mat-form-field class="answerText">-->
-  <!--    <textarea matInput-->
-  <!--              formControlName="answerText"-->
-  <!--              placeholder="Описание">-->
-  <!--    </textarea>-->
-  <!--      </mat-form-field>-->
-  <!--      <mat-checkbox formControlName="isCorrect" color="primary">Верно</mat-checkbox>-->
-<!--          <button-->
-<!--            mat-flat-button-->
-<!--            color="primary"-->
-<!--            (click)="addAnswer()">Добавить ответ-->
-<!--          </button>-->
-  <!--    </div>-->
-  <!--  </form>-->
-  <!--    <div *ngFor="let item of answers">-->
-  <!--      <mat-form-field class="answer">-->
-  <!--        <input matInput-->
-  <!--               placeholder="Ответ"-->
-  <!--               formControlName="answerText"-->
-  <!--               [value]="item.answerText"/>-->
-  <!--      </mat-form-field>-->
-  <!--      <mat-checkbox [checked]="item.isCorrect" color="primary">Правильный ответ</mat-checkbox>-->
-  <!--      <mat-icon color="primary" (click)="removeItem(item)">delete</mat-icon>-->
-  <!--    </div>-->
-
-
-  <!--    <app-answers-list #list [list]="answers" (invalidItem)="checkAnswers($event)"></app-answers-list>-->
-
-
-  <!--    <mat-form-field class="answers-count">-->
-  <!--      <mat-label>Количество ответов</mat-label>-->
-  <!--      <mat-select formControlName="answersCount"-->
-  <!--                  required>-->
-  <!--        <mat-option>Не задано</mat-option>-->
-  <!--        <mat-option *ngFor="let answerCount of answersCountItems" [value]="answerCount">-->
-  <!--          {{answerCount}}-->
-  <!--        </mat-option>-->
-  <!--      </mat-select>-->
-  <!--    </mat-form-field>-->
-
-
 </div>
 
-<div *ngIf="showErrorMessage">Должен быть минимум один правильный ответ</div>
 <div mat-dialog-actions>
   <button mat-flat-button
           color="primary"

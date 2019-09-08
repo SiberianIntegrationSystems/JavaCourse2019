@@ -1,26 +1,24 @@
 import {ChangeDetectionStrategy, Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {QuestionJournalItem} from 'src/app/model/question-journal-item.model';
 import {QuestionJournalItemAnswer} from '../../../model/question-journal-item-answer.model';
 
 export interface JournalData {
   journalItem: QuestionJournalItem;
   eventLabel: string;
-  answersCountItems: number[];
 }
 
 export interface QuestionJournalDialogResult {
   name: string;
-  answersCount: number;
   answers: QuestionJournalItemAnswer[];
 }
 
-export function validateEmail(formArray: FormArray) {
+export function validateIsCorrectControl(formArray: FormArray) {
   const formGroups: FormGroup[] = formArray.controls as FormGroup[];
-  const res = formGroups.map(group => group.controls).filter(
-    control => control.isCorrect.value === true
-  );
+  const res = formGroups
+    .map(group => group.controls)
+    .filter(control => control.isCorrect.value);
 
   if (res.length < 1) {
     return {
@@ -29,7 +27,6 @@ export function validateEmail(formArray: FormArray) {
       }
     };
   }
-
   return null;
 }
 
@@ -44,13 +41,11 @@ export function validateEmail(formArray: FormArray) {
 export class QuestionJournalDialogComponent implements OnInit {
 
   public eventLabel: string;
-  public answersCountItems: number[];
   public dialogForm: FormGroup;
   public answersFormArray: FormArray;
 
   public showErrorMessage: boolean;
   private description: string;
-  private answersCount: number;
   private answers: QuestionJournalItemAnswer[] = [];
 
   constructor(public dialogRef: MatDialogRef<QuestionJournalDialogComponent>,
@@ -65,11 +60,9 @@ export class QuestionJournalDialogComponent implements OnInit {
 
   private fillData() {
     this.eventLabel = this.data.eventLabel;
-    this.answersCountItems = this.data.answersCountItems;
 
     if (this.data.journalItem) {
       this.description = this.data.journalItem.name;
-      this.answersCount = this.data.journalItem.answersCount;
       this.answers = this.data.journalItem.answers;
     }
   }
@@ -85,37 +78,13 @@ export class QuestionJournalDialogComponent implements OnInit {
 
     this.dialogForm = this.fb.group({
       description: new FormControl(this.description, Validators.required),
-      answersArray: this.fb.array(answersArr, [Validators.required, validateEmail]),
+      answersArray: this.fb.array(answersArr, [Validators.required, validateIsCorrectControl]),
     });
 
     this.answersFormArray = this.dialogForm.get('answersArray') as FormArray;
 
 
   }
-
-  // requireCheckboxesToBeCheckedValidator(): ValidatorFn {
-  //   console.log('!!!');
-  //   return function validate(formGroup: FormGroup) {
-  //     let checked = 0;
-  //
-  //     console.log(formGroup);
-  //     Object.keys(formGroup.controls).forEach(key => {
-  //       const control = formGroup.controls[key];
-  //
-  //       if (control.value === true) {
-  //         checked ++;
-  //       }
-  //     });
-  //
-  //     if (checked < 1) {
-  //       return {
-  //         requireCheckboxesToBeChecked: true,
-  //       };
-  //     }
-  //
-  //     return null;
-  //   };
-  // }
 
   addAnswer() {
     this.answersFormArray.push(
@@ -135,13 +104,12 @@ export class QuestionJournalDialogComponent implements OnInit {
     this.answers = this.answersFormArray.value;
     console.log(this.answers);
 
-    // const newValues: QuestionJournalDialogResult = {
-    //   name: this.dialogForm.get('description').value,
-    //   answersCount: this.dialogForm.get('answersCount').value,
-    //   answers: this.answers,
-    // };
-    //
-    // this.dialogRef.close(newValues);
+    const newValues: QuestionJournalDialogResult = {
+      name: this.dialogForm.get('description').value,
+      answers: this.answers,
+    };
+
+    this.dialogRef.close(newValues);
 
 
   }
