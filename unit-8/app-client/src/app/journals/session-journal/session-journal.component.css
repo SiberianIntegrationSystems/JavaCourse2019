@@ -1,0 +1,20 @@
+table,
+.search-field {
+  width: 100%;
+}
+
+.create-button {
+  margin: 10px 15px;
+}
+
+.filters mat-form-field {
+  margin: 5px 0;
+}
+
+.mat-column-id {
+  width: 50px;
+}
+
+.mat-column-name {
+  width: 600px;
+}

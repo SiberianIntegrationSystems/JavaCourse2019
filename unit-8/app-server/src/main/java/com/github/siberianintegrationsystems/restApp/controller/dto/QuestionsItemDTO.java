@@ -1,12 +1,14 @@
 package com.github.siberianintegrationsystems.restApp.controller.dto;
 
-public class QuestionsItemDTO extends JournalItemDTO {
-    public String name;
-    public int answersCount;
+import java.util.List;
 
-    public QuestionsItemDTO(String id, String name, int answersCount) {
+public class QuestionsItemDTO extends JournalItemDTO {
+
+    public List<AnswerItemDTO> answers;
+
+    public QuestionsItemDTO(String id, String name, List<AnswerItemDTO> answers) {
         this.id = id;
         this.name = name;
-        this.answersCount = answersCount;
+        this.answers = answers;
     }
 }
