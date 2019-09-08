@@ -14,8 +14,8 @@
     <div>Варианты ответов:</div>
 
 <!--    РЕДАКТИРОВАТЬ УЖЕ ИМЕЮЩИЕСЯ-->
-    <div formArrayName="arr">
-      <div class="form-group" *ngFor="let item of dialogForm.controls['arr'].controls; let i = index">
+    <div formArrayName="answersArray">
+      <div class="form-group" *ngFor="let item of answersFormArray.controls; let i = index">
         <div formGroupName="{{i}}">
           <mat-icon color="primary" (click)="removeItem(i)">delete</mat-icon>
           <mat-form-field class="description">

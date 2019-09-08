@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy, Component, Inject, OnInit, ViewChild, ViewChildren} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
+import {ChangeDetectionStrategy, Component, Inject, OnInit, ViewChild} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {QuestionJournalItem} from 'src/app/model/question-journal-item.model';
 import {QuestionJournalItemAnswer} from '../../../model/question-journal-item-answer.model';
@@ -32,9 +32,7 @@ export class QuestionJournalDialogComponent implements OnInit {
   public eventLabel: string;
   public answersCountItems: number[];
   public dialogForm: FormGroup;
-  public answerForm: FormGroup;
-  public isInvalidAnswers: boolean;
-  public canCreate: boolean;
+  public answersFormArray: FormArray;
 
   public showErrorMessage: boolean;
   private description: string;
@@ -52,7 +50,7 @@ export class QuestionJournalDialogComponent implements OnInit {
   }
 
   addAnswer() {
-    (this.dialogForm.controls[`arr`] as FormArray).push(
+   this.answersFormArray.push(
       new FormGroup({
           answerText: new FormControl('', Validators.required),
           isCorrect: new FormControl(false, Validators.required)
@@ -61,23 +59,8 @@ export class QuestionJournalDialogComponent implements OnInit {
     );
   }
 
-
   removeItem(index: number) {
-    console.log(index);
-    (this.dialogForm.get('arr') as FormArray).removeAt(index);
-  }
-
-  public checkAnswers(isInvalid: boolean) {
-    console.log(isInvalid);
-    this.isInvalidAnswers = isInvalid;
-  }
-
-  public save(item: QuestionJournalItemAnswer) {
-    this.answers = this.answers.filter(val => val === item);
-    this.answers.push({
-      answerText: this.answerForm.get('answerText').value,
-      isCorrect: this.answerForm.get('isCorrect').value,
-    });
+    this.answersFormArray.removeAt(index);
   }
 
   private fillData() {
@@ -102,15 +85,16 @@ export class QuestionJournalDialogComponent implements OnInit {
 
     this.dialogForm = this.fb.group({
       description: new FormControl(this.description, Validators.required),
-      isCorrect: new FormControl(),
-      arr: this.fb.array(answersArr),
+      answersArray: this.fb.array(answersArr),
     });
+
+    this.answersFormArray = this.dialogForm.get('answersArray') as FormArray;
 
   }
 
 
   onDialogSubmit() {
-    this.answers = this.dialogForm.get('arr').value;
+    this.answers = this.answersFormArray.value;
     console.log(this.answers);
 
     // const newValues: QuestionJournalDialogResult = {
