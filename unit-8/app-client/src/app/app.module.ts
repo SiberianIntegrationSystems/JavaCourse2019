@@ -26,7 +26,6 @@ import {QuestionJournalComponent} from './journals/question-journal/question-jou
 import {JournalMainService} from './core/journal-main.service';
 import {QuestionJournalMainService} from './journals/question-journal/core/question-journal-main.service';
 import {QuestionJournalBackendMockService} from './journals/question-journal/core/question-journal-backend-mock.service';
-import {AnswersListComponent} from './journals/question-journal/components/answers-list/answers-list.component';
 
 @NgModule({
   declarations: [
@@ -34,8 +33,6 @@ import {AnswersListComponent} from './journals/question-journal/components/answe
     QuestionJournalComponent,
     QuestionJournalDialogComponent,
     JournalComponent,
-    AnswersListComponent,
-    AnswersListComponent,
   ],
   imports: [
     BrowserAnimationsModule,

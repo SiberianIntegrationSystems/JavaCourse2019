@@ -1,9 +1,8 @@
-import {ChangeDetectionStrategy, Component, Inject, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {QuestionJournalItem} from 'src/app/model/question-journal-item.model';
 import {QuestionJournalItemAnswer} from '../../../model/question-journal-item-answer.model';
-import {AnswersListComponent} from '../components/answers-list/answers-list.component';
 
 export interface JournalData {
   journalItem: QuestionJournalItem;
@@ -26,9 +25,6 @@ export interface QuestionJournalDialogResult {
 
 export class QuestionJournalDialogComponent implements OnInit {
 
-  @ViewChild(AnswersListComponent, {static: false})
-  child: AnswersListComponent;
-
   public eventLabel: string;
   public answersCountItems: number[];
   public dialogForm: FormGroup;
@@ -49,20 +45,6 @@ export class QuestionJournalDialogComponent implements OnInit {
     this.fillForm();
   }
 
-  addAnswer() {
-   this.answersFormArray.push(
-      new FormGroup({
-          answerText: new FormControl('', Validators.required),
-          isCorrect: new FormControl(false, Validators.required)
-        }
-      )
-    );
-  }
-
-  removeItem(index: number) {
-    this.answersFormArray.removeAt(index);
-  }
-
   private fillData() {
     this.eventLabel = this.data.eventLabel;
     this.answersCountItems = this.data.answersCountItems;
@@ -78,20 +60,33 @@ export class QuestionJournalDialogComponent implements OnInit {
     const answersArr: FormGroup[] = this.answers.map(ans =>
       new FormGroup({
           answerText: new FormControl(ans.answerText, Validators.required),
-          isCorrect: new FormControl(ans.isCorrect, Validators.required)
-        }
+          isCorrect: new FormControl(ans.isCorrect)
+        },
       )
     );
 
     this.dialogForm = this.fb.group({
       description: new FormControl(this.description, Validators.required),
-      answersArray: this.fb.array(answersArr),
+      answersArray: this.fb.array(answersArr, Validators.required),
     });
 
     this.answersFormArray = this.dialogForm.get('answersArray') as FormArray;
 
   }
 
+  addAnswer() {
+    this.answersFormArray.push(
+      new FormGroup({
+          answerText: new FormControl('', Validators.required),
+          isCorrect: new FormControl(false, Validators.required)
+        }
+      )
+    );
+  }
+
+  removeItem(index: number) {
+    this.answersFormArray.removeAt(index);
+  }
 
   onDialogSubmit() {
     this.answers = this.answersFormArray.value;
