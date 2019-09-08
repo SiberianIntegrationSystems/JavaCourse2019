@@ -14,7 +14,7 @@ export interface QuestionJournalDialogResult {
   answers: QuestionJournalItemAnswer[];
 }
 
-export function validateIsCorrectControl(formArray: FormArray) {
+export function validateIsCorrectControls(formArray: FormArray) {
   const formGroups: FormGroup[] = formArray.controls as FormGroup[];
   const res = formGroups
     .map(group => group.controls)
@@ -22,7 +22,7 @@ export function validateIsCorrectControl(formArray: FormArray) {
 
   if (res.length < 1) {
     return {
-      validateEmail: {
+      validateIsCorrectControls: {
         valid: false
       }
     };
@@ -48,7 +48,7 @@ export class QuestionJournalDialogComponent implements OnInit {
   private description: string;
   private answers: QuestionJournalItemAnswer[] = [];
 
-  private static createAnswerFormGroup(answerText: string, isCorrect: boolean) {
+  private static createAnswerFormGroup(answerText: string, isCorrect: boolean): FormGroup {
     return new FormGroup({
         answerText: new FormControl(answerText, Validators.required),
         isCorrect: new FormControl(isCorrect)
@@ -81,7 +81,7 @@ export class QuestionJournalDialogComponent implements OnInit {
 
     this.dialogForm = this.fb.group({
       description: new FormControl(this.description, Validators.required),
-      answersArray: this.fb.array(answersArr, [Validators.required, validateIsCorrectControl]),
+      answersArray: this.fb.array(answersArr, [Validators.required, validateIsCorrectControls]),
     });
 
     this.answersFormArray = this.dialogForm.get('answersArray') as FormArray;
