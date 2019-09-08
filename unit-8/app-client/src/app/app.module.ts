@@ -3,8 +3,10 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {
   MatButtonModule,
+  MatCheckboxModule,
   MatDialogModule,
   MatDividerModule,
+  MatIconModule,
   MatInputModule,
   MatPaginatorModule,
   MatSelectModule,
@@ -46,6 +48,8 @@ import {QuestionJournalBackendMockService} from './journals/question-journal/cor
     AppRoutingModule,
     FormsModule,
     MatDialogModule,
+    MatCheckboxModule,
+    MatIconModule,
   ],
   entryComponents: [QuestionJournalDialogComponent],
   providers: [

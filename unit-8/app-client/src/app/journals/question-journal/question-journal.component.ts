@@ -4,11 +4,7 @@ import {MatDialog, PageEvent} from '@angular/material';
 import {Observable, Subscription} from 'rxjs';
 import {debounceTime, map, startWith, tap} from 'rxjs/operators';
 import {JournalMainService} from 'src/app/core/journal-main.service';
-import {
-  FILTER_CODE_QUESTION_ANSWERS_COUNT,
-  FILTER_TYPE_SINGLE_SELECT,
-  JournalFilterItem,
-} from 'src/app/model/core/journal-filter-item';
+import {FILTER_CODE_QUESTION_ANSWERS_COUNT, FILTER_TYPE_SINGLE_SELECT, JournalFilterItem} from 'src/app/model/core/journal-filter-item';
 import {QuestionJournalItem} from 'src/app/model/question-journal-item.model';
 import {
   QuestionJournalDialogComponent,
@@ -48,7 +44,7 @@ export class QuestionJournalComponent implements OnInit, OnDestroy {
     return {
       id: itemId,
       name: data.name,
-      answersCount: data.answersCount
+      answers: data.answers,
     };
   }
 
@@ -139,13 +135,13 @@ export class QuestionJournalComponent implements OnInit, OnDestroy {
 
   private openDialog(label: string, item?: QuestionJournalItem): Promise<QuestionJournalDialogResult> {
     const dialogRef = this.dialog.open(QuestionJournalDialogComponent, {
-      width: '500px',
+      width: '700px',
       data: {
         eventLabel: label,
-        answersCountItems: this.answersCountItems,
         journalItem: item,
       },
       restoreFocus: false,
+      disableClose: true,
     });
 
     return dialogRef.afterClosed().toPromise();
