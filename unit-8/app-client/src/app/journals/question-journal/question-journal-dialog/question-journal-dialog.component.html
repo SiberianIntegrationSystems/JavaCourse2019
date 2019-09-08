@@ -11,15 +11,23 @@
     </textarea>
     </mat-form-field>
 
-    <div>Варианты ответов:</div>
+    <div class="answers">Варианты ответов:
+      <button
+        mat-flat-button
+        color="primary"
+        (click)="addAnswer()">Добавить
+      </button>
+    </div>
 
-    <div formArrayName="answersArray">
-      <div class="form-group" *ngFor="let item of answersFormArray.controls; let i = index">
-        <div formGroupName="{{i}}">
-          <mat-icon color="primary" (click)="removeItem(i)">delete</mat-icon>
-          <mat-form-field class="description">
+    <div formArrayName="answersArray" class="answers-array">
+      <div *ngFor="let item of answersFormArray.controls; let i = index">
+        <div formGroupName="{{i}}" class="form-group">
+          <button mat-icon-button (click)="removeItem(i)">
+            <mat-icon color="primary">delete</mat-icon>
+          </button>
+          <mat-form-field class="answer-text">
             <input matInput
-                   placeholder="Текст ответа"
+                   placeholder="Ответ"
                    required
                    formControlName="answerText"/>
           </mat-form-field>
@@ -28,21 +36,14 @@
       </div>
     </div>
 
-    <button
-      mat-flat-button
-      color="primary"
-      (click)="addAnswer()">Добавить ответ
-    </button>
 
   </form>
-
-
 </div>
 
 <div mat-dialog-actions>
   <button mat-flat-button
           color="primary"
-          [disabled]="dialogForm.invalid || (dialogForm.untouched && dialogForm.pristine)"
+          [disabled]="dialogForm.invalid || dialogForm.pristine"
           (click)="onDialogSubmit()">Сохранить
   </button>
   <button color="primary"

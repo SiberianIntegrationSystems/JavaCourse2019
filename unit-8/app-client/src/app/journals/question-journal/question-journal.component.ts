@@ -141,6 +141,7 @@ export class QuestionJournalComponent implements OnInit, OnDestroy {
         journalItem: item,
       },
       restoreFocus: false,
+      disableClose: true,
     });
 
     return dialogRef.afterClosed().toPromise();
