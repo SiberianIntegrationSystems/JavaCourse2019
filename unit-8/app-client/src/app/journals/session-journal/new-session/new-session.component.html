@@ -17,12 +17,12 @@
   <div formArrayName="questionsArray">
     <div *ngFor="let question of questions$ | async; let i = index;">
       <div [formGroupName]="i">
-        <p>Вопрос №{{question.id}} [{{i}}]</p>
+        <p class="question-title">Вопрос №{{i + 1}}</p>
         <p>{{question.name}}</p>
         <div formArrayName="answersArray">
           <div *ngFor="let answer of question.answers; let j = index;">
             <div [formGroupName]="j">
-              <p><mat-checkbox color="primary" [formControlName]="'isSelected'"></mat-checkbox> [{{j}}] {{answer.answerText}}</p>
+              <p><mat-checkbox color="primary" [formControlName]="'isSelected'"></mat-checkbox> {{j + 1}}) {{answer.answerText}}</p>
             </div>
           </div>
         </div>

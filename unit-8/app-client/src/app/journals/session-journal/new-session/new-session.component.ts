@@ -78,7 +78,7 @@ export class NewSessionComponent implements OnInit, OnDestroy {
 
   private openResultDialog(result: string) {
     const dialogRef = this.dialog.open(SessionResultDialogComponent, {
-      width: '700px',
+      width: '350px',
       data: result,
       restoreFocus: false,
       disableClose: true,
