@@ -1,0 +1,33 @@
+<button mat-flat-button
+        color="primary"
+        [disabled]="sessionForm.get('description').invalid"
+        (click)="onSessionSubmit()">Завершить сессию
+</button>
+
+<form [formGroup]="sessionForm">
+
+  <mat-form-field class="description">
+    <textarea matInput
+              formControlName="description"
+              placeholder="Введите название сессии"
+              required>
+    </textarea>
+  </mat-form-field>
+
+  <div formArrayName="questionsArray">
+    <div *ngFor="let question of questions$ | async; let i = index;">
+      <div [formGroupName]="i">
+        <p>Вопрос №{{question.id}} [{{i}}]</p>
+        <p>{{question.name}}</p>
+        <div formArrayName="answersArray">
+          <div *ngFor="let answer of question.answers; let j = index;">
+            <div [formGroupName]="j">
+              <p><mat-checkbox color="primary" [formControlName]="'isSelected'"></mat-checkbox> [{{j}}] {{answer.answerText}}</p>
+            </div>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+      </div>
+    </div>
+  </div>
+</form>

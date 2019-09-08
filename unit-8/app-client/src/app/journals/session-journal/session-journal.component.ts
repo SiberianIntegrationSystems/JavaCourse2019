@@ -1,11 +1,10 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {Observable, Subscription} from "rxjs";
-import {FormBuilder, FormControl} from "@angular/forms";
+import {FormControl} from "@angular/forms";
 import {JournalMainService} from "../../core/journal-main.service";
-import {MatDialog} from "@angular/material/dialog";
 import {PageEvent} from "@angular/material/paginator";
 import {debounceTime, map, startWith, tap} from "rxjs/operators";
-import {SessionJournalMainService, SESSIONS_JOURNAL_ID} from "./main/session-journal-main.service";
+import {SESSIONS_JOURNAL_ID} from "./main/session-journal-main.service";
 import {SessionJournalItem} from "../../model/session/session-journal-item.model";
 
 @Component({
@@ -32,10 +31,7 @@ export class SessionJournalComponent implements OnInit, OnDestroy {
   private lastPageSize: number;
   private searchSubscription: Subscription;
 
-  constructor(private service: JournalMainService,
-              private fb: FormBuilder,
-              private dialog: MatDialog,
-              private sessionJournalService: SessionJournalMainService) {
+  constructor(private service: JournalMainService) {
   }
 
   ngOnInit() {
@@ -47,17 +43,12 @@ export class SessionJournalComponent implements OnInit, OnDestroy {
     this.searchSubscription.unsubscribe();
   }
 
-
   onPageClick(event: PageEvent) {
     if (event.pageSize !== this.lastPageSize) {
       this.service.setPageSize(event.pageSize);
     } else if (event.previousPageIndex !== event.pageIndex) {
       this.service.setPage(event.pageIndex + 1);
     }
-  }
-
-  createSession() {
-
   }
 
   private fillJournalData() {

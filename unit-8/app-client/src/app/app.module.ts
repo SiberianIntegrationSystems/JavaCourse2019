@@ -28,6 +28,8 @@ import {QuestionJournalBackendMockService} from './journals/question-journal/cor
 import {MatTabsModule} from "@angular/material/tabs";
 import { SessionJournalComponent } from './journals/session-journal/session-journal.component';
 import {SessionJournalMainService} from "./journals/session-journal/main/session-journal-main.service";
+import { NewSessionComponent } from './journals/session-journal/new-session/new-session.component';
+import { SessionResultDialogComponent } from './journals/session-journal/session-result-dialog/session-result-dialog.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,8 @@ import {SessionJournalMainService} from "./journals/session-journal/main/session
     QuestionJournalDialogComponent,
     JournalComponent,
     SessionJournalComponent,
+    NewSessionComponent,
+    SessionResultDialogComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -56,7 +60,10 @@ import {SessionJournalMainService} from "./journals/session-journal/main/session
     MatIconModule,
     MatTabsModule,
   ],
-  entryComponents: [QuestionJournalDialogComponent],
+  entryComponents: [
+    QuestionJournalDialogComponent,
+    SessionResultDialogComponent,
+  ],
   providers: [
     JournalBackendMockService,
     JournalMainService,

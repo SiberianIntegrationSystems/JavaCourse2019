@@ -11,7 +11,7 @@
 <button mat-raised-button
         class="create-button"
         color=primary
-        (click)="createSession()">Начать новую сессию
+        [routerLink]="'/sessions/new'">Начать новую сессию
 </button>
 
 <table mat-table [dataSource]="sessions$ | async" class="mat-elevation-z8">
