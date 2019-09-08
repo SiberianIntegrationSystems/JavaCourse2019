@@ -16,11 +16,11 @@ export interface QuestionJournalDialogResult {
 
 export function validateIsCorrectControls(formArray: FormArray) {
   const formGroups: FormGroup[] = formArray.controls as FormGroup[];
-  const res = formGroups
+  const result = formGroups
     .map(group => group.controls)
     .filter(control => control.isCorrect.value);
 
-  if (res.length < 1) {
+  if (result.length < 1) {
     return {
       validateIsCorrectControls: {
         valid: false
@@ -75,13 +75,13 @@ export class QuestionJournalDialogComponent implements OnInit {
   }
 
   private fillForm() {
-    const answersArr: FormGroup[] = this.answers.map(ans =>
-      QuestionJournalDialogComponent.createAnswerFormGroup(ans.answerText, ans.isCorrect)
+    const answersArray: FormGroup[] = this.answers.map(answer =>
+      QuestionJournalDialogComponent.createAnswerFormGroup(answer.answerText, answer.isCorrect)
     );
 
     this.dialogForm = this.fb.group({
       description: new FormControl(this.description, Validators.required),
-      answersArray: this.fb.array(answersArr, [Validators.required, validateIsCorrectControls]),
+      answersArray: this.fb.array(answersArray, [Validators.required, validateIsCorrectControls]),
     });
 
     this.answersFormArray = this.dialogForm.get('answersArray') as FormArray;
