@@ -1,4 +1,26 @@
 package pro.sisit.lvm444.utest.TestDrivenApplication.mockito;
 
+import pro.sisit.lvm444.utest.TestDrivenApplication.mockito.domain.UserLevel;
+
 public class DiscountServiceImpl implements DiscountService {
+    @Override
+    public double getDiscount(UserLevel level) {
+
+        if (UserLevel.SMALL.equals(level))
+        {
+            return 0.95;
+        }
+        else if(UserLevel.MEDIUM.equals(level))
+        {
+            return 0.90;
+        }
+        else if(UserLevel.HUGE.equals(level))
+        {
+            return 0.85;
+        }
+        else
+        {
+            return 100;
+        }
+    }
 }

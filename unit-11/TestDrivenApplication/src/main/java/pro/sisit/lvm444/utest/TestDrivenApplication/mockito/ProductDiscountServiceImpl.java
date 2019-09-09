@@ -11,25 +11,19 @@ import pro.sisit.lvm444.utest.TestDrivenApplication.mockito.domain.UserLevel;
 @Service
 public class ProductDiscountServiceImpl implements ProductDiscountService {
 
+    @Autowired
+    private DiscountService discountService;
 
     @Override
-    public double calculateDiscount(Product product1, ClientUser client) {
+    public double calculateDiscount(Product product, ClientUser client) {
 
-        if(client.getLevel().equals(UserLevel.SMALL))
+        if (product.getCost()>99)
         {
-            return product1.getCost()*0.95;
-        }
-        else if(client.getLevel().equals(UserLevel.MEDIUM))
-        {
-            return product1.getCost()*0.90;
-        }
-        else if(client.getLevel().equals(UserLevel.HUGE))
-        {
-            return product1.getCost()*0.85;
+            return product.getCost()*discountService.getDiscount(client.getLevel());
         }
         else
         {
-            return product1.getCost();
+            return product.getCost();
         }
     }
 }
