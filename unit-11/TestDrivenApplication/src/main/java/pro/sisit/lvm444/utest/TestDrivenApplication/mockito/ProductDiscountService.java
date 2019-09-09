@@ -5,5 +5,5 @@ import pro.sisit.lvm444.utest.TestDrivenApplication.mockito.domain.Product;
 
 public interface ProductDiscountService {
 
-    public double calculateDiscount(Product product1, ClientUser client);
+    public double calculateDiscount(Integer cost, ClientUser client);
 }

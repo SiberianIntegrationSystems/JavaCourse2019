@@ -1,8 +1,10 @@
 package pro.sisit.lvm444.utest.TestDrivenApplication.mockito;
 
+import org.springframework.stereotype.Service;
 import pro.sisit.lvm444.utest.TestDrivenApplication.mockito.domain.ClientUser;
 import pro.sisit.lvm444.utest.TestDrivenApplication.mockito.domain.UserLevel;
 
+@Service
 public class DiscountServiceImpl implements DiscountService {
     @Override
     public double getDiscount(UserLevel level) {
