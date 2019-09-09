@@ -9,7 +9,7 @@ import {Observable} from 'rxjs';
 export class QuestionJournalBackendMockService {
 
   private static getQuestionJournalRestUrl(): string {
-    return BASE_URL + 'questions-journal/';
+    return BASE_URL + 'question/';
   }
 
   constructor(private http: HttpClient) {
