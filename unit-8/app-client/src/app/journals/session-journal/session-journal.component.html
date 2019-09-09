@@ -4,7 +4,7 @@
   <mat-form-field class="search-field">
     <input matInput
            [formControl]="searchFormControl"
-           placeholder="Введите описание сессии для поиска...">
+           placeholder="Введите ФИО для поиска...">
   </mat-form-field>
 </div>
 
@@ -21,8 +21,13 @@
     <td mat-cell *matCellDef="let element"> {{element.id}}</td>
   </ng-container>
 
+  <ng-container matColumnDef="insertDate">
+    <th mat-header-cell *matHeaderCellDef> Дата и время создания</th>
+    <td mat-cell *matCellDef="let element"> {{element.insertDate | date: 'dd.MM.yyyy HH:mm:ss'}}</td>
+  </ng-container>
+
   <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef> Описание</th>
+    <th mat-header-cell *matHeaderCellDef> ФИО</th>
     <td mat-cell *matCellDef="let element"> {{element.name}}</td>
   </ng-container>
 

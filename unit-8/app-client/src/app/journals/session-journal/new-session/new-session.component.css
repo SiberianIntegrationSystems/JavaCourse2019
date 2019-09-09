@@ -10,3 +10,8 @@ form {
 .submit-button {
   margin: 10px 15px;
 }
+
+mat-card {
+  margin: 15px;
+  background-color: #fafafa;
+}

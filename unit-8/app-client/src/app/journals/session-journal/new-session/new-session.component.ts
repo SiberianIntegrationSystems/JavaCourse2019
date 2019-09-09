@@ -19,18 +19,17 @@ export class NewSessionComponent implements OnInit, OnDestroy {
   public sessionForm: FormGroup;
   public questionGroups: FormArray;
 
-  private description: string;
   private formSubscription: Subscription;
 
   constructor(private service: SessionJournalMainService,
               private fb: FormBuilder,
               private dialog: MatDialog,
-              private router:Router) { }
+              private router: Router) { }
 
   ngOnInit() {
     this.sessionForm = this.fb.group({
-      description: this.fb.control(this.description, Validators.required),
-      questionsArray: this.fb.array([]),
+      name: this.fb.control('', Validators.required),
+      questionsList: this.fb.array([]),
     });
     this.fillQuestions();
   }
@@ -40,39 +39,28 @@ export class NewSessionComponent implements OnInit, OnDestroy {
   }
 
   public onSessionSubmit() {
-    const result = {
-      name: this.sessionForm.value.description,
-      questionList: this.questionGroups.value.map(question => ({
-        id: question.question,
-        answerList: question.answersArray.map(answer => ({
-          id: answer.id,
-          isSelected: answer.isSelected
-        }))
-      }))
-    };
-
-    this.service.submitNewSession(result)
+    this.service.submitNewSession(this.sessionForm.value)
       .toPromise()
       .then(result => this.openResultDialog(result));
   }
 
   private fillQuestions() {
     this.questions$ = this.service.getQuestionsForNewSession();
-    this.formSubscription = this.questions$.subscribe(questions => this.fillFormGroups(questions))
+    this.formSubscription = this.questions$.subscribe(questions => this.fillFormGroups(questions));
   }
 
   private fillFormGroups(questions: QuestionJournalItem[]) {
     this.questionGroups = this.fb.array(questions.map(question => this.fb.group({
-      question: question.id,
-      answersArray: this.fb.array(question.answers.map(answer => this.fb.group({
+      id: question.id,
+      answersList: this.fb.array(question.answers.map(answer => this.fb.group({
         id: answer.answerText,
         isSelected: this.fb.control(false)
       })))
     })));
 
     this.sessionForm = this.fb.group({
-      description: this.fb.control(this.description, Validators.required),
-      questionsArray: this.questionGroups,
+      name: this.fb.control('', Validators.required),
+      questionsList: this.questionGroups,
     });
   }
 
@@ -86,6 +74,6 @@ export class NewSessionComponent implements OnInit, OnDestroy {
 
     return dialogRef.afterClosed()
       .toPromise()
-      .then(() => this.router.navigate(["sessions"]));
+      .then(() => this.router.navigate(['sessions']));
   }
 }

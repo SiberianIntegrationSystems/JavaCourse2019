@@ -2,6 +2,7 @@ package com.github.siberianintegrationsystems.restApp.controller;
 
 import com.github.siberianintegrationsystems.restApp.controller.dto.*;
 import com.github.siberianintegrationsystems.restApp.controller.dto.session.SessionItemDTO;
+import java.time.LocalDateTime;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -36,8 +37,8 @@ public class JournalRestController {
     );
 
     private final List<SessionItemDTO> sessions = Arrays.asList(
-            new SessionItemDTO("1", "Сессия №1", 0),
-            new SessionItemDTO("2", "Сессия №2", 0)
+            new SessionItemDTO("1", "Иванов И.И.", LocalDateTime.now(), 0),
+            new SessionItemDTO("2", "Сидоров А.А.", LocalDateTime.now(), 0)
     );
 
     @GetMapping("{id}")

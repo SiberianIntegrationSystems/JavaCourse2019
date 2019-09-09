@@ -20,6 +20,7 @@ export class SessionJournalComponent implements OnInit, OnDestroy {
 
   public displayedColumns: string[] = [
     'id',
+    'insertDate',
     'name',
     'result',
   ];

@@ -3,6 +3,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {
   MatButtonModule,
+  MatCardModule,
   MatCheckboxModule,
   MatDialogModule,
   MatDividerModule,
@@ -59,6 +60,7 @@ import { SessionResultDialogComponent } from './journals/session-journal/session
     MatCheckboxModule,
     MatIconModule,
     MatTabsModule,
+    MatCardModule,
   ],
   entryComponents: [
     QuestionJournalDialogComponent,
