@@ -17,13 +17,14 @@ public class ProductDiscountServiceImpl implements ProductDiscountService {
     @Override
     public double calculateDiscount(Product product, ClientUser client) {
 
+        double discountedValue = product.getCost();
         if (product.getCost()>99)
         {
-            return product.getCost()*discountService.getDiscount(client.getLevel());
+             discountedValue = discountedValue * discountService.getDiscount(client.getLevel());
         }
-        else
-        {
-            return product.getCost();
-        }
+
+        discountService.sendNotification(client);
+
+        return discountedValue;
     }
 }

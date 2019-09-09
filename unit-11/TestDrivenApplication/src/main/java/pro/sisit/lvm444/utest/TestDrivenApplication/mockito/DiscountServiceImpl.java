@@ -1,5 +1,6 @@
 package pro.sisit.lvm444.utest.TestDrivenApplication.mockito;
 
+import pro.sisit.lvm444.utest.TestDrivenApplication.mockito.domain.ClientUser;
 import pro.sisit.lvm444.utest.TestDrivenApplication.mockito.domain.UserLevel;
 
 public class DiscountServiceImpl implements DiscountService {
@@ -22,5 +23,10 @@ public class DiscountServiceImpl implements DiscountService {
         {
             return 100;
         }
+    }
+
+    @Override
+    public void sendNotification(ClientUser client) {
+        System.out.printf("User has discount %s%n", client.getName());
     }
 }
