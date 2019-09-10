@@ -9,8 +9,10 @@ import com.github.siberianintegrationsystems.restApp.entity.Question;
 import java.util.List;
 import javax.transaction.SystemException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class QuestionServiceImpl implements QuestionService {
 
     private final QuestionRepository questionRepository;
