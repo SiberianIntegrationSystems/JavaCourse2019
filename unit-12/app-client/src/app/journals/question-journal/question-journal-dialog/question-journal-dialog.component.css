@@ -1,0 +1,36 @@
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: baseline;
+}
+
+.mat-dialog-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.mat-flat-button {
+  margin: auto 10px;
+}
+
+.answers-count {
+  width: 180px;
+}
+
+.answers {
+  font-size: large;
+}
+
+.answers-array {
+  padding: 10px 0;
+}
+
+.answer-text {
+  width: 300px;
+}

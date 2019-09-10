@@ -1,0 +1,10 @@
+.main-info {
+  display: flex;
+  justify-content: center;
+  vertical-align: middle;
+}
+
+.refresh-button {
+  height: 35px;
+  margin: auto 10px;
+}

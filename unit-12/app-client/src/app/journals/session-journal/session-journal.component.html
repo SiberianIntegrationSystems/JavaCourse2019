@@ -1,0 +1,48 @@
+<app-journal [journalId]="journalId"></app-journal>
+
+<div class="filters">
+  <mat-form-field class="search-field">
+    <input matInput
+           [formControl]="searchFormControl"
+           placeholder="Введите ФИО для поиска...">
+  </mat-form-field>
+</div>
+
+<button mat-raised-button
+        class="create-button"
+        color=primary
+        [routerLink]="'/sessions/new'">Начать новую сессию
+</button>
+
+<table mat-table [dataSource]="sessions$ | async" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef> №</th>
+    <td mat-cell *matCellDef="let element"> {{element.id}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="insertDate">
+    <th mat-header-cell *matHeaderCellDef> Дата и время создания</th>
+    <td mat-cell *matCellDef="let element"> {{element.insertDate | date: 'dd.MM.yyyy HH:mm:ss'}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> ФИО</th>
+    <td mat-cell *matCellDef="let element"> {{element.name}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="result">
+    <th mat-header-cell *matHeaderCellDef> % правильных ответов</th>
+    <td mat-cell *matCellDef="let element"> {{element.result}}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"
+               showFirstLastButtons
+               [length]="length$ | async"
+               [pageSize]="pageSize$ | async"
+               (page)="onPageClick($event)">
+</mat-paginator>

@@ -1,0 +1,17 @@
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.question-title {
+  color: blue;
+}
+
+.submit-button {
+  margin: 10px 15px;
+}
+
+mat-card {
+  margin: 15px;
+  background-color: #fafafa;
+}
