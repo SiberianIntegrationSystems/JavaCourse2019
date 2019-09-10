@@ -3,6 +3,8 @@ package pro.sisit.lvm444.utest.TestDrivenApplication.rest;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
@@ -15,6 +17,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import pro.sisit.lvm444.utest.TestDrivenApplication.TestDrivenApplication;
+import pro.sisit.lvm444.utest.TestDrivenApplication.mockito.ProductDiscountServiceImpl;
 
 import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -38,7 +41,7 @@ public class ProductDiscountControllerTest {
     @Test
     public void getDiscount() throws Exception {
         mockMvc.perform( MockMvcRequestBuilders
-                .get("/api/discount/1?clientId=2")
+                .get("/api/discount/1?clientId=5")
                 .accept(MediaType.ALL))
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.status().isOk());
