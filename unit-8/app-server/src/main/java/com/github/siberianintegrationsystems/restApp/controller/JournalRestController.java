@@ -27,10 +27,10 @@ public class JournalRestController {
     }
 
     @GetMapping("{id}")
-    public JournalEntityDTO getJournalEntity(@PathVariable String id) throws SystemException {
+    public JournalEntityDTO getJournalEntity(@PathVariable String id) {
         return journalService.findJournalById(id)
                              .map(JournalEntityDTO::new)
-                             .orElseThrow(() -> new SystemException(String.format("Журнал с id '%s' не найден", id)));
+                             .orElseThrow(() -> new RuntimeException(String.format("Журнал с id '%s' не найден", id)));
     }
 
     @PutMapping("{id}/rows")

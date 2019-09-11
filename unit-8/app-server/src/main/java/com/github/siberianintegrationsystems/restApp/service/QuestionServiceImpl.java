@@ -37,9 +37,9 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public QuestionsItemDTO editQuestion(QuestionsItemDTO dto) throws SystemException {
+    public QuestionsItemDTO editQuestion(QuestionsItemDTO dto) {
         Question question = this.questionRepository.findById(Long.valueOf(dto.id))
-                                                   .orElseThrow(() -> new SystemException(
+                                                   .orElseThrow(() -> new RuntimeException(
                                                        String.format("Не найден вопрос с id %s", dto.id)));
 
         question.setName(dto.name);
@@ -50,7 +50,7 @@ public class QuestionServiceImpl implements QuestionService {
 
         saveAnswerList(question, dto.answers);
 
-        return null;
+        return new QuestionsItemDTO(question, answerRepository.findAllByQuestion(question));
     }
 
     private void saveAnswerList(Question question, List<AnswerItemDTO> answerItemDTOS) {

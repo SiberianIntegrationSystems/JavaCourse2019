@@ -22,9 +22,8 @@ public class QuestionRestController {
         this.questionService = questionService;
     }
 
-    @PutMapping("edit/{id}")
-    public QuestionsItemDTO editQuestion(@PathVariable String id, @RequestBody QuestionsItemDTO dto)
-        throws SystemException {
+    @PutMapping("edit")
+    public QuestionsItemDTO editQuestion(@RequestBody QuestionsItemDTO dto) {
         return this.questionService.editQuestion(dto);
     }
 
