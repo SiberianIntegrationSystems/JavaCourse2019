@@ -53,7 +53,7 @@ export class NewSessionComponent implements OnInit, OnDestroy {
     this.questionGroups = this.fb.array(questions.map(question => this.fb.group({
       id: question.id,
       answersList: this.fb.array(question.answers.map(answer => this.fb.group({
-        id: answer.answerText,
+        id: answer.id,
         isSelected: this.fb.control(false)
       })))
     })));

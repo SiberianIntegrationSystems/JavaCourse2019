@@ -17,7 +17,7 @@ export class QuestionJournalBackendMockService {
 
   editQuestionJournalItem(item: QuestionJournalItem): Observable<QuestionJournalItem> {
     return this.http.put<QuestionJournalItem>(
-      QuestionJournalBackendMockService.getQuestionJournalRestUrl() + 'edit/' + item.id, item
+      QuestionJournalBackendMockService.getQuestionJournalRestUrl() + 'edit', item
     );
   }
 
