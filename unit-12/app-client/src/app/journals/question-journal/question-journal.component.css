@@ -1,0 +1,33 @@
+table,
+.search-field {
+  width: 100%;
+}
+
+.edit-button {
+  margin: auto 15px;
+}
+
+.create-button {
+  margin: 10px 15px;
+}
+
+.filters mat-form-field {
+  margin: 5px 0;
+}
+
+.mat-column-edit {
+  width: 150px;
+  padding: 0 !important;
+}
+
+.mat-column-id {
+  width: 50px;
+}
+
+.mat-column-name {
+  width: 600px;
+}
+
+.apply-filters-btn {
+  margin: 0 5px;
+}

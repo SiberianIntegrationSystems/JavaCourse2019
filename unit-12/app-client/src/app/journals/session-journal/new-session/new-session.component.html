@@ -1,0 +1,35 @@
+<button mat-flat-button
+        color="primary"
+        class="submit-button"
+        [disabled]="sessionForm.get('name').invalid"
+        (click)="onSessionSubmit()">Завершить сессию
+</button>
+
+<form [formGroup]="sessionForm">
+
+  <mat-form-field>
+    <textarea matInput
+              formControlName="name"
+              placeholder="Введите ФИО"
+              required>
+    </textarea>
+  </mat-form-field>
+
+  <div formArrayName="questionsList">
+    <mat-card *ngFor="let question of questions$ | async; let i = index;">
+      <div [formGroupName]="i">
+        <p class="question-title">Вопрос №{{i + 1}}</p>
+        <p>{{question.name}}</p>
+        <div formArrayName="answersList">
+          <div *ngFor="let answer of question.answers; let j = index;">
+            <div [formGroupName]="j">
+              <p>
+                <mat-checkbox color="primary" [formControlName]="'isSelected'"></mat-checkbox>
+                {{j + 1}}) {{answer.answerText}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</form>

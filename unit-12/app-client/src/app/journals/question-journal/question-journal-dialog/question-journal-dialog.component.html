@@ -1,0 +1,53 @@
+<h1 mat-dialog-title>{{eventLabel}} запись журнала</h1>
+<div mat-dialog-content>
+
+  <form [formGroup]="dialogForm">
+
+    <mat-form-field class="description">
+    <textarea matInput
+              formControlName="description"
+              placeholder="Описание"
+              required>
+    </textarea>
+    </mat-form-field>
+
+    <div class="answers">Варианты ответов:
+      <button
+        mat-flat-button
+        color="primary"
+        (click)="addAnswer()">Добавить
+      </button>
+    </div>
+
+    <div formArrayName="answersArray" class="answers-array">
+      <div *ngFor="let item of answersFormArray.controls; let i = index">
+        <div formGroupName="{{i}}" class="form-group">
+          <button mat-icon-button (click)="removeItem(i)">
+            <mat-icon color="primary">delete</mat-icon>
+          </button>
+          <mat-form-field class="answer-text">
+            <input matInput
+                   placeholder="Ответ"
+                   required
+                   formControlName="answerText"/>
+          </mat-form-field>
+          <mat-checkbox color="primary" formControlName="isCorrect">Верно</mat-checkbox>
+        </div>
+      </div>
+    </div>
+
+
+  </form>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-flat-button
+          color="primary"
+          [disabled]="dialogForm.invalid || dialogForm.pristine"
+          (click)="onDialogSubmit()">Сохранить
+  </button>
+  <button color="primary"
+          mat-flat-button
+          (click)="closeDialog()">Закрыть
+  </button>
+</div>
